@@ -1,0 +1,32 @@
+<p>register works!</p>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow-lg" style="width: 400px;">
+      <h2 class="text-center mb-4">Inscription</h2>
+  
+      <form>
+        <div class="mb-3">
+          <label for="name" class="form-label">Nom Complet</label>
+          <input type="text" class="form-control" id="name" placeholder="Entrez votre nom">
+        </div>
+  
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Entrez votre email">
+        </div>
+  
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input type="password" class="form-control" id="password" placeholder="Entrez votre mot de passe">
+        </div>
+  
+        <button type="submit" class="btn btn-success w-100">
+          <i class="fa fa-user-plus"></i> S'inscrire
+        </button>
+      </form>
+  
+      <p class="text-center mt-3">
+        Déjà inscrit ? <a routerLink="/login">Se connecter</a>
+      </p>
+    </div>
+  </div>
+  
