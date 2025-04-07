@@ -5,10 +5,11 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { ListeRendezVousComponent } from './components/rendez-vous/liste-rendez-vous/liste-rendez-vous.component'; // Importer le composant
 import { RouterModule } from '@angular/router';
 import { FilterPipe } from './filter.pipe';
 import { FormsModule } from '@angular/forms';
+import { FormRendezVousComponent } from './components/rendez-vous/form-rendez-vous/form-rendez-vous.component';  
+import { ReactiveFormsModule } from '@angular/forms';
 NgModule({
   declarations: [
     AppComponent,
@@ -17,12 +18,15 @@ NgModule({
     RegisterComponent,
     FilterPipe,
     FormsModule ,
-    ListeRendezVousComponent
+    ReactiveFormsModule,
+    FormRendezVousComponent,
+   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
+   
     RouterModule.forRoot([])
   ],
   providers: [],

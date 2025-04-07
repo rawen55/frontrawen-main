@@ -1,68 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class RendezVousService {
-  // Données factices
-  private rendezVousList = [
-    {
-      id: 1,
-      date: '2025-04-01',
-      heure: '10:00',
-      patient: { nom: 'John Doe' },
-      statut: 'En attente',
-    },
-    {
-      id: 2,
-      date: '2025-04-02',
-      heure: '14:00',
-      patient: { nom: 'Jane Doe' },
-      statut: 'Confirmé',
-    },
-    {
-      id: 3,
-      date: '2025-04-03',
-      heure: '09:30',
-      patient: { nom: 'Alex Smith' },
-      statut: 'Reporté',
-    },
-  ];
+export class RendezvousService {
+  private apiUrl = '/api/rendezvous';  // Assurez-vous que cette URL correspond à votre backend
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  // Méthode pour récupérer tous les rendez-vous (ici, renvoie les données factices)
-  getAllRendezVous(): Observable<any[]> {
-    return of(this.rendezVousList);
+  createRendezvous(rendezvousData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, rendezvousData);
   }
 
-  // Méthode pour accepter un rendez-vous (simulé)
-  acceptRendezVous(id: number): Observable<void> {
-    const rendezVous = this.rendezVousList.find((rdv) => rdv.id === id);
-    if (rendezVous) {
-      rendezVous.statut = 'Confirmé';
-    }
-    return of();
+  getRendezvousByPatient(patientId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/patient/${patientId}`);
   }
 
-  // Méthode pour refuser un rendez-vous (simulé)
-  rejectRendezVous(id: number): Observable<void> {
-    const rendezVous = this.rendezVousList.find((rdv) => rdv.id === id);
-    if (rendezVous) {
-      rendezVous.statut = 'Refusé';
-    }
-    return of();
+  getRendezvousByMedecin(medecinId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/medecin/${medecinId}`);
   }
 
-  // Méthode pour reporter un rendez-vous (simulé)
-  rescheduleRendezVous(id: number, nouvelleDate: string): Observable<void> {
-    const rendezVous = this.rendezVousList.find((rdv) => rdv.id === id);
-    if (rendezVous) {
-      rendezVous.date = nouvelleDate;
-      rendezVous.statut = 'Reporté';
-    }
-    return of();
+  updateRendezvous(rendezvousId: string, updateData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${rendezvousId}`, updateData);
   }
 }
 

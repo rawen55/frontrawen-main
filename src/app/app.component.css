@@ -87,17 +87,6 @@ font-weight: 600;
 color: #1A76D1;
 font-size: 15px;
 }
-.pro-features .button{}
-.pro-features .button .btn {
-width: 100%;
-text-align: center;
-margin-top: 8px;
-display: inline-block;
-float: left;
-font-size: 13px;
-width: 100%;
-text-transform: capitalize;
-}f
 .pro-features li {
 color: #333;
 margin: 0;
@@ -120,9 +109,7 @@ top: 0;
 cursor: pointer;
 box-shadow: -4px 0px 5px #00000036;
 }
-.get-pro:hover{
 
-}
 #scrollUp {
 bottom: 15px;
 right: 15px;
@@ -557,7 +544,7 @@ border-color:transparent;
 /* Right Bar */
 .header.style2 .main-menu{
 display:inline-block;
-float:left;
+
 }
 .header .right-bar {
 float: right;
@@ -659,4 +646,20 @@ body{
 font-weight: 400;
 font-size:14px;
 color:#888;
+}
+.btn-demande-rendez-vous {
+  display: inline-block;
+  padding: 10px 30px;
+  border: 2px solid #007BFF; /* Bordure bleue */
+  color: #007BFF;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  background-color: transparent;
+  white-space: nowrap; /* pour que la phrase reste sur une ligne */
+}
+.btn-demande-rendez-vous:hover {
+  background-color: #007BFF;
+  color: white;
 }
