@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ListeRendezVousComponent } from './liste-rendez-vous.component';
 
-describe('ListeRendezVousComponent', () => {
-  let component: ListeRendezVousComponent;
-  let fixture: ComponentFixture<ListeRendezVousComponent>;
+import { UnauthorizedComponent } from './unauthorized.component';
+
+describe('UnauthorizedComponent', () => {
+  let component: UnauthorizedComponent;
+  let fixture: ComponentFixture<UnauthorizedComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListeRendezVousComponent]
+      imports: [UnauthorizedComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ListeRendezVousComponent);
+    fixture = TestBed.createComponent(UnauthorizedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

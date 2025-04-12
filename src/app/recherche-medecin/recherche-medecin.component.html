@@ -1,0 +1,19 @@
+<div class="search-container">
+  <input type="text" [(ngModel)]="searchText" (input)="filterMedecins()" placeholder="Rechercher un médecin par nom ou spécialité" />
+</div>
+
+<div *ngIf="filteredMedecins.length > 0">
+  <div class="medecin-card" *ngFor="let medecin of filteredMedecins">
+    <h3>{{ medecin.nom }}</h3>
+    <p><strong>Spécialité :</strong> {{ medecin.specialite }}</p>
+    <button class="btn-rdv"
+            [routerLink]="['/rendez-vous']"
+            [queryParams]="{ medecin: medecin.nom }">
+      Demander un rendez-vous
+    </button>
+  </div>
+</div>
+
+<div *ngIf="filteredMedecins.length === 0">
+  <p>Aucun médecin trouvé correspondant à votre recherche.</p>
+</div>

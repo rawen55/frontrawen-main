@@ -1,37 +1,70 @@
 import { Component, OnInit } from '@angular/core';
-import { RendezVousService } from '../../../services/rendez-vous.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FilterPipe } from "../../../filter.pipe";
+
+import { FilterPipe } from '../../../filter.pipe';
+import { RendezVousService } from '../../../services/rendez-vous.service';
 
 @Component({
   selector: 'app-liste-rendez-vous',
   templateUrl: './liste-rendez-vous.component.html',
-  imports: [CommonModule, FormsModule, FilterPipe],
-  styleUrls: ['./liste-rendez-vous.component.css']
+  styleUrls: ['./liste-rendez-vous.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule, FilterPipe]
 })
-
 export class ListeRendezVousComponent implements OnInit {
+  selectedRdvId: number | null = null;
+  showCalendar: boolean = false;
+  newDate: string = '';
+  searchText: string = '';
   rendezVousList: any[] = [];
-  nouvelleDate: string = ''; // Stocke la nouvelle date pour le report
-  confirmAction: string | null = null; // Gère l'action confirmée
-  statusFilter: string = ''; // Filtre de statut
-searchText: any;
+  filteredRendezVous: any[] = [];
+  confirmAction: string | null = null;
+  statusFilter: string = '';
+  router: any;
 
   constructor(private rendezVousService: RendezVousService) {}
 
   ngOnInit(): void {
-    this.getRendezVous();
+    // Tu peux utiliser l'un ou l'autre :
+    // this.getRendezVous(); // depuis le backend
+    this.loadFakeData(); // localement
   }
 
+  // Données de test locales
+  loadFakeData(): void {
+    this.rendezVousList = [
+      {
+        id: 1,
+        date: '2025-04-12T10:00',
+        statut: 'En attente',
+        patient: { nom: 'Ali', prenom: 'Ben Salah' }
+      },
+      {
+        id: 2,
+        date: '2025-04-13T15:30',
+        statut: 'Confirmé',
+        patient: { nom: 'Sarra', prenom: 'Trabelsi' }
+      },
+      {
+        id: 3,
+        date: '2025-04-14T09:00',
+        statut: 'Refusé',
+        patient: { nom: 'Mounir', prenom: 'Gharbi' }
+      }
+    ];
+    this.filteredRendezVous = [...this.rendezVousList];
+  }
+
+  // Si tu veux activer le backend, utilise cette méthode
   getRendezVous(): void {
-    this.rendezVousService.getAllRendezVous().subscribe(data => {
+    this.rendezVousService.getAllRendezVous().subscribe((data: any) => {
       this.rendezVousList = data;
-      this.filterRendezVous();
+      this.filteredRendezVous = this.rendezVousList;
+      console.log(this.rendezVousList);
     });
   }
 
-  // Méthode de filtrage des rendez-vous
   filterRendezVous(): void {
     if (this.statusFilter) {
       this.filteredRendezVous = this.rendezVousList.filter(rdv => rdv.statut === this.statusFilter);
@@ -39,52 +72,42 @@ searchText: any;
       this.filteredRendezVous = this.rendezVousList;
     }
   }
-
+  goToRendezVous() {
+    this.router.navigate(['/liste-rendez-vous']);
+  }
   acceptRendezVous(id: number): void {
-    this.confirmAction = 'accepter';
-    // Rappelle l'id du rendez-vous pour confirmation
+    console.log('Accepté', id);
+    this.rendezVousList.find(r => r.id === id)!.statut = 'Confirmé';
+    this.filterRendezVous();
   }
 
   rejectRendezVous(id: number): void {
-    this.confirmAction = 'refuser';
-    // Rappelle l'id du rendez-vous pour confirmation
+    console.log('Refusé', id);
+    this.rendezVousList.find(r => r.id === id)!.statut = 'Refusé';
+    this.filterRendezVous();
   }
 
-  cancelConfirmation(): void {
-    this.confirmAction = null; // Annule la confirmation
-  }
-
-  confirmRdvAction(): void {
-    if (this.confirmAction === 'accepter') {
-      this.rendezVousService.acceptRendezVous(1).subscribe(() => {
-        this.getRendezVous();
-        this.confirmAction = null;
-      });
-    } else if (this.confirmAction === 'refuser') {
-      this.rendezVousService.rejectRendezVous(0).subscribe(() => {
-        this.getRendezVous();
-        this.confirmAction = null;
-      });
-    }
-  }
   onRendezVousClick(rdv: any): void {
-    alert(`Vous avez cliqué sur le rendez-vous avec ${rdv.patient?.nom} le ${rdv.date}`);
+    alert(`Rendez-vous avec ${rdv.patient?.prenom} ${rdv.patient?.nom} le ${rdv.date}`);
   }
 
+  onReportClick(rdv: any): void {
+    this.selectedRdvId = rdv.id;
+    this.showCalendar = true;
+  }
 
-  rescheduleRendezVous(id: number): void {
-    if (!this.nouvelleDate) {
+  submitNewDate(id: number): void {
+    if (!this.newDate) {
       alert('Veuillez sélectionner une nouvelle date.');
       return;
     }
-    this.rendezVousService.rescheduleRendezVous(id, this.nouvelleDate).subscribe(() => {
-      this.getRendezVous();
-      this.nouvelleDate = '';
-    });
+    const rdv = this.rendezVousList.find(r => r.id === id);
+    if (rdv) {
+      rdv.date = this.newDate;
+      rdv.statut = 'Reporté';
+    }
+    this.showCalendar = false;
+    this.newDate = '';
+    this.filterRendezVous();
   }
-
-  // Variable pour stocker les rendez-vous filtrés
-  filteredRendezVous: any[] = [];
 }
-
-

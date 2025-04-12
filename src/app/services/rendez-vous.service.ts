@@ -5,25 +5,25 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RendezvousService {
-  private apiUrl = '/api/rendezvous';  // Assurez-vous que cette URL correspond à votre backend
+export class RendezVousService {
+  private apiUrl = 'https://api.exemple.com/rendezvous'; // Changez l'URL pour votre API
 
   constructor(private http: HttpClient) {}
 
-  createRendezvous(rendezvousData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/create`, rendezvousData);
+  getAllRendezVous(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 
-  getRendezvousByPatient(patientId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/patient/${patientId}`);
+  rescheduleRendezVous(id: number, newDate: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, { newDate });
   }
 
-  getRendezvousByMedecin(medecinId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/medecin/${medecinId}`);
+  acceptRendezVous(id: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/accept/${id}`, {});
   }
 
-  updateRendezvous(rendezvousId: string, updateData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${rendezvousId}`, updateData);
+  rejectRendezVous(id: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/reject/${id}`, {});
   }
 }
 

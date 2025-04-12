@@ -1,19 +1,30 @@
 import { Injectable } from '@angular/core';
-import { config } from '../config/config';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigService {
-  private config = config;
 
-  constructor() { }
+  private baseUrl = 'http://localhost:8080/api';  // URL de ton backend
 
-  getApiUrl(): string {
-    return this.config.apiUrl;
+  constructor(private http: HttpClient) { }
+
+  // Exemple d'une méthode pour récupérer les rendez-vous
+  getAppointments(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/appointments`);
   }
 
-  getAppTitle(): string {
-    return this.config.appTitle;
+  // Exemple pour ajouter un rendez-vous
+  addAppointment(appointment: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/appointments`, appointment);
   }
+
+  // Exemple de login
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/login`, { username, password });
+  }
+
+  // Autres méthodes pour interagir avec ton backend...
 }

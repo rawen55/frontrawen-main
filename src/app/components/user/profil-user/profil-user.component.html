@@ -1,0 +1,18 @@
+<div class="profile-card">
+  <h2>Mon Profil</h2>
+  <div class="profile-field">
+    <label>Nom complet :</label>
+    <span>{{ user.fullName }}</span>
+  </div>
+  <div class="profile-field">
+    <label>Email :</label>
+    <span>{{ user.email }}</span>
+  </div>
+  <div class="profile-field">
+    <label>Date de naissance :</label>
+    <span>{{ user.birthDate }}</span>
+  </div>
+  <button class="btn-edit" (click)="onEdit()">Modifier</button>
+</div>
+
+  

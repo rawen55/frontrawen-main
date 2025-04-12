@@ -1,5 +1,7 @@
 <div class="container mx-auto p-4">
   <h2 class="text-2xl font-bold mb-4">Liste des Rendez-Vous</h2>
+<!-- Bouton pour revenir à l'accueil -->
+
 
   <!-- Barre de recherche -->
   <div class="mb-4">
@@ -15,7 +17,7 @@
 
   <!-- Liste des rendez-vous -->
   <ul class="list-none">
-    <li *ngFor="let rdv of rendezVousList | filter: searchText" class="mb-2 p-4 border rounded shadow cursor-pointer" 
+    <li *ngFor="let rdv of filteredRendezVous | filter: searchText" class="mb-2 p-4 border rounded shadow cursor-pointer" 
         (click)="onRendezVousClick(rdv)">
       <div>
         <strong>Date :</strong> {{ rdv.date }} <br>
@@ -42,10 +44,27 @@
 
         <button 
           *ngIf="rdv.statut === 'Confirmé'" 
-          (click)="rescheduleRendezVous(rdv.id)" 
+          (click)="onReportClick(rdv)" 
           class="bg-yellow-500 text-white px-4 py-2 rounded">
           Reporter
         </button>
+      </div>
+
+      <!-- Affichage du calendrier pour reporter -->
+      <div *ngIf="rdv.id === selectedRdvId && showCalendar" class="mt-4">
+        <label for="newDate" class="mr-2">Nouvelle Date :</label>
+        <input 
+          type="date" 
+          id="newDate" 
+          [(ngModel)]="newDate" 
+          class="border px-2 py-1"
+        />
+        <button 
+          (click)="submitNewDate(rdv.id)" 
+          class="bg-green-500 text-white px-4 py-2 rounded mt-2">
+          Valider la nouvelle date
+        </button>
+       
       </div>
     </li>
   </ul>
