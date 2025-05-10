@@ -1,53 +1,4 @@
-/* =====================================
-Template Name: 	Mediplus.
-Author Name: Naimur Rahman
-Website: http://wpthemesgrid.com/
-Description: Mediplus - Doctor HTML Template.
-Version:	1.1
-========================================*/   
-/*======================================
-[ CSS Table of contents ]
-* Global CSS
-* Header CSS
-	+ Topbar
-	+ Logo
-	+ Widget
-	+ Main Menu
-	+ Search
-* Hero Slider CSS
-* Schedule CSS
-* Feautes CSS
-* Fun Facts CSS
-* Why Choose CSS
-* Call to Action CSS
-* Portfolio CSS
-	+ Portfolio Single CSS
-* Services CSS
-* Testimonials CSS
-* Departments CSS
-* Pricing Table CSS
-* Clients CSS
-* Team CSS
-	+ Single Team
-* Blog CSS
-	+ Latest Blog CSS
-	+ Blog Single CSS
-	+ Blog Sidebar CSS
-* Appointment CSS
-* Login CSS
-* Register CSS
-* Faq CSS
-* Contact Us CSS
-* Error 404 CSS
-* Mail Success CSS
-* Newsletter CSS
-* Doctor Calendar CSS
-* About Us CSS
-* Footer CSS
-========================================*/ 
-/*=============================
-	Global CSS 
-===============================*/
+
 body{
   font-family: 'Poppins', sans-serif;
 font-weight: 400;
@@ -284,15 +235,7 @@ Start Header CSS
   }
 }
 
-/* Responsive design: On larger screens, align them horizontally */
-@media (min-width: 768px) {
-  .col-lg-2.col-12 {
-      flex-direction: row;
-  }
-  .get-quote {
-      margin-right: 15px; /* Space between buttons */
-  }
-}
+
 
 
 a{
@@ -647,19 +590,52 @@ font-weight: 400;
 font-size:14px;
 color:#888;
 }
-.btn-demande-rendez-vous {
-  display: inline-block;
-  padding: 10px 30px;
-  border: 2px solid #007BFF; /* Bordure bleue */
-  color: #007BFF;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 16px;
-  background-color: transparent;
-  white-space: nowrap; /* pour que la phrase reste sur une ligne */
+/* Conteneur pour les boutons d'authentification */
+.auth-buttons {
+  display: flex; /* Aligne les boutons côte à côte */
+  justify-content: space-between; /* Ajoute de l'espace entre les boutons */
+  align-items: center; /* Centre verticalement les boutons */
+  gap: 10px; /* Ajoute un espacement entre les boutons */
 }
-.btn-demande-rendez-vous:hover {
-  background-color: #007BFF;
+
+/* Conteneur pour les boutons d'authentification */
+.auth-buttons {
+  display: flex; /* Aligne les boutons côte à côte */
+  justify-content: center; /* Centre les boutons horizontalement */
+  align-items: center; /* Centre verticalement les boutons */
+  gap: 15px; /* Ajoute un espacement entre les boutons */
+  flex-wrap: nowrap; /* Empêche les boutons de s'empiler */
+}
+
+/* Style pour les boutons */
+.auth-buttons .btn {
+  background-color: #1a76d1; /* Couleur bleue */
   color: white;
+  padding: 10px 20px; /* Ajuste le padding pour une taille uniforme */
+  border-radius: 30px; /* Coins arrondis */
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease; /* Transition fluide */
+  white-space: nowrap; /* Empêche le texte de se couper sur plusieurs lignes */
+}
+
+/* Effet au survol */
+.auth-buttons .btn:hover {
+  background-color: #155a8a; /* Couleur bleue plus foncée */
+  transform: translateY(-3px); /* Légère élévation */
+}
+
+/* Responsive design : Ajuste les boutons sur les petits écrans */
+@media (max-width: 767px) {
+  .auth-buttons {
+    flex-wrap: wrap; /* Permet aux boutons de s'empiler sur les petits écrans */
+    justify-content: center; /* Centre les boutons sur les petits écrans */
+  }
+
+  .auth-buttons .btn {
+    width: 100%; /* Les boutons prennent toute la largeur */
+    text-align: center;
+  }
 }

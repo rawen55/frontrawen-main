@@ -43,11 +43,8 @@ export class RechercheMedecinComponent implements OnInit {
   }
 
   medecins = [
-    { id: 1, nom: 'Dr. Ahmed Ben Salah', specialite: 'Cardiologie' },
-    { id: 2, nom: 'Dr. Fatma Mahjoub', specialite: 'Dermatologie' },
-    { id: 3, nom: 'Dr. Sami Trabelsi', specialite: 'Gynécologie' },
-    { id: 4, nom: 'Dr. Leila Jaziri', specialite: 'Pédiatrie' },
-    { id: 5, nom: 'Dr. Youssef Bouzid', specialite: 'Psychiatrie' }
+    { id: '', nom: 'Dr. ', specialite: '' },
+   
   ];
   demanderRdv(medecin: any): void {
     alert(`Vous avez demandé un rendez-vous avec ${medecin.nom} (${medecin.specialite})`);

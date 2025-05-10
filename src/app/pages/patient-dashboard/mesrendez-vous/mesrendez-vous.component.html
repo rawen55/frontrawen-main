@@ -1,0 +1,21 @@
+<div class="mes-rendez-vous">
+    <h2>Mes Rendez-vous</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom du Médecin</th>
+          <th>Prénom du Médecin</th>
+          <th>Date</th>
+          <th>Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rdv of rendezVousList">
+          <td>{{ rdv.medecin.nom }}</td>
+          <td>{{ rdv.medecin.prenom }}</td>
+          <td>{{ rdv.date | date: 'short' }}</td>
+          <td>{{ rdv.statutRdv }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

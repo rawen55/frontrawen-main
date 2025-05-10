@@ -1,0 +1,26 @@
+<!-- Bouton toggle -->
+<button (click)="toggleSidebar()" class="sidebar-toggle-btn">
+  {{ isSidebarOpen ? '✖' : '☰' }}
+</button>
+
+<div class="container">
+  <div></div>
+  <aside class="sidebar" [class.open]="isSidebarOpen">
+    <h1 class="logo">Dawini</h1>
+    <nav>
+      <ul>
+        <li><a routerLink="/dashboard" routerLinkActive="active">🏠 Bienvenue</a></li>
+        <li><a routerLink="/dashboard/statistique" routerLinkActive="active"> statistique</a></li>
+        <li><a routerLink="/dashboard/appointments" routerLinkActive="active">📅 Mes patients</a></li>
+        <li><a routerLink="/dashboard/patients" routerLinkActive="active">📁 Dossiers Patients</a></li>
+        <li><a routerLink="/dashboard/profil" routerLinkActive="active">👤 Profil</a></li>
+        <li><button (click)="logout()">🚪 Déconnexion</button></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

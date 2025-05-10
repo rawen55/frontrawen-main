@@ -1,0 +1,133 @@
+.contact-section {
+    background-color: #ffffff;
+    padding: 60px 20px;
+    border-radius: 20px;
+    max-width: 1200px;
+    margin: auto;
+    box-shadow: 0 10px 30px rgba(0, 119, 182, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    color: #003b6f;
+  }
+  
+  .contact-section h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 15px;
+    color: #005b99;
+  }
+  
+  .contact-section p {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 50px;
+  }
+  
+  .contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: center;
+  }
+  
+  .contact-info {
+    flex: 1 1 300px;
+  }
+  
+  .contact-info h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #0077cc;
+  }
+  
+  .contact-info p a {
+    color: #003b6f;
+    text-decoration: none;
+  }
+  
+  .contact-info p a:hover {
+    text-decoration: underline;
+  }
+  
+  .contact-form {
+    flex: 1 1 400px;
+    background-color: #f4faff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0, 119, 182, 0.1);
+  }
+  
+  .contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    padding: 14px;
+    border: 1px solid #cce5ff;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #003b6f;
+    transition: border-color 0.3s;
+  }
+  
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: #0077cc;
+    outline: none;
+  }
+  
+  .contact-form button {
+    padding: 14px;
+    background-color: #0077cc;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .contact-form button:hover {
+    background-color: #005fa3;
+  }
+  
+  .map-container {
+    margin-top: 60px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 119, 182, 0.15);
+  }
+  
+  
+  .map-container {
+    margin-top: 40px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  /* Boutons d'action */
+  .action-btn {
+      background-color: #3182ce;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.25rem;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease-in-out;
+  }
+  
+  .action-btn:hover {
+      background-color: #2b6cb0;  /* Couleur plus foncée */
+  }
+  
+  /* Effet de transition au survol pour les sections */
+  .service:hover, .testimonial:hover {
+      transform: translateY(-15px);  /* Un léger effet de remontée */
+  }  

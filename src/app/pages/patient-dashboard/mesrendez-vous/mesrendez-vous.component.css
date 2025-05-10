@@ -1,0 +1,74 @@
+/* Conteneur principal */
+.mes-rendez-vous {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #e3f2fd; /* Bleu clair */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Titre */
+  .mes-rendez-vous h2 {
+    text-align: center;
+    color: #1565c0; /* Bleu foncé */
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Table */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .table thead {
+    background-color: #1565c0; /* Bleu foncé */
+    color: white;
+  }
+  
+  .table th,
+  .table td {
+    text-align: left;
+    padding: 12px;
+    border: 1px solid #ddd;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #bbdefb; /* Bleu clair */
+  }
+  
+  .table tbody tr:nth-child(odd) {
+    background-color: #e3f2fd; /* Bleu encore plus clair */
+  }
+  
+  .table tbody tr:hover {
+    background-color: #90caf9; /* Bleu clair au survol */
+  }
+  
+  /* Statut */
+  .table td:last-child {
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #0d47a1; /* Bleu très foncé */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .mes-rendez-vous {
+      padding: 10px;
+    }
+  
+    .table th,
+    .table td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .mes-rendez-vous h2 {
+      font-size: 20px;
+    }
+  }

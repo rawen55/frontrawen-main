@@ -1,0 +1,49 @@
+<header class="header">
+    <div class="header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                  
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <a class="navbar-brand text-white" routerLink="/">
+                            <span class="h4"> <img class="logo_dawini" src="/assets/images/logoDawini1.png" /></span>
+                          </a>
+                        
+                        <div class="mobile-nav">
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-9 col-12">
+                        <div class="main-menu">
+                            <nav class="navigation">
+                                <ul class="nav menu">
+                                    <li class="active"><a routerLink="/" >Home <i class="icofont-rounded-down"></i></a></li>
+                                    <li (mouseenter)="toggleSpecialitesDropdown(true)" (mouseleave)="toggleSpecialitesDropdown(false)">
+                                      <a href="#">Spécialités</a>
+                                      <ul class="dropdown" *ngIf="showSpecialites">
+                                        <li *ngFor="let specialite of specialites">
+                                          <a href="#">{{ specialite }}</a>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                    <li><a routerLink="/contact" >Contactez-nous</a></li>
+                                   
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="col-lg-2 col-12">
+                      <div class="auth-buttons">
+                        <a routerLink="/login" class="btn">Se connecter</a>
+                        <a routerLink="/register" class="btn">S'inscrire</a>
+                      </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </header>
+ 
+  

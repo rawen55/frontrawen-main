@@ -1,6 +1,7 @@
 /* Style général de la section */
 .home-banner {
-    background-color: #ebf8ff;  /* Couleur de fond douce */
+  background: linear-gradient(125deg, #f6f8f9, #b9ddf7);
+  /* Couleur de fond douce */
     padding: 30px 20px; /* Réduit davantage la marge verticale */
     display: flex;
     flex-direction: row;
@@ -16,9 +17,9 @@
 
 /* Contenu de la bannière */
 .content {
-    text-align: left;  /* Alignement du texte à gauche */
-    padding-left: 50px;
-    z-index: 1; /* S'assure que le contenu est devant l'arrière-plan */
+  text-align: center; /* Centre le texte */
+  padding: 0; /* Supprime le padding gauche */
+  z-index: 1; /* S'assure que le contenu est devant l'arrière-plan */
 }
 .image-container {
     flex: 1;
@@ -47,6 +48,41 @@
       transform: scale(1);
     }
   }
+  .welcome-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f8ff;
+    color: #0077cc;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: bold;
+  }
+  
+  .welcome-container h1 {
+    font-size: 36px;
+    border-right: 3px solid #0077cc;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
+    
+  }
+  
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 26ch; /* "Bienvenue sur Dawini" = 22 lettres + 4 espace/punctuation */
+    }
+  }
+  
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
   
   /* RESPONSIVE */
   @media (max-width: 768px) {
@@ -54,12 +90,15 @@
       flex-direction: column;
       padding: 20px;
       text-align: center;
+      
     }
 }
 
 /* Style pour le titre */
 .title {
-    font-size: 3rem; /* Taille du texte */
+  
+  margin-top: 6rem;
+    font-size: 4rem; /* Taille du texte */
     font-weight: 800;  /* Texte gras */
     color: #2b6cb0;  /* Bleu moderne */
     margin-bottom: 20px; /* Espace sous le titre */
@@ -69,13 +108,18 @@
 
 /* Style pour le sous-titre */
 .subtitle {
-    font-size: 1.25rem;  /* Taille de police modérée */
-    color: #4a5568;  /* Gris clair */
-    margin-bottom: 30px; /* Espace sous le sous-titre */
+  font-size: 2rem;/* Ajuste la taille de la police */
+  font-weight: bold; /* Rend le texte gras */
+  color: #4f8ec8; /* Couleur bleue similaire */
+  text-align: center; /* Centre le texte */
+  margin-bottom: 20px; /* Ajoute un espace en dessous */
+
+  letter-spacing: 1px; /* Ajoute un espacement entre les lettres */
 }
 
-/* Style pour le bouton Voir les rendez-vous */
+/* Style pour le bouton demander les rendez-vous */
 .btn {
+  
     background-color: #3182ce;  /* Bleu */
     color: white;
     padding: 12px 24px;
@@ -100,7 +144,42 @@
     color: #2b6cb0;
     margin-bottom: 50px;
   }
-  
+  /* Style de la section Bienvenue */
+.welcome-section {
+ 
+  text-align: center;
+  margin-top: 10px;
+  font-size: 2.5rem;
+  color: #007BFF;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+}
+
+/* Animation du texte */
+.animated-text {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007BFF;
+  opacity: 0;
+  animation: typing 3s steps(30) 1s forwards, blink 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
   .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -196,66 +275,118 @@
     font-size: 1.25rem;
     font-weight: 600;
     color: #3182ce;
-}
-
-/* Section de contact */
-.contact-section {
-    background-color: #2b6cb0;
-    color: white;
-    padding: 50px 20px;
-    text-align: center;
+}.contact-section {
+  background-color: #e0f2fe; /* bleu très clair */
+  padding: 4rem 1rem;
+  margin-top: 4rem;
+  border-top: 4px solid #38bdf8; /* bleu clair */
+  border-radius: 0.75rem;
 }
 
 .contact-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 40px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #0ea5e9; /* bleu clair */
+  margin-bottom: 1.5rem;
 }
 
 .contact-section p {
-    font-size: 1.25rem;
-    margin-bottom: 30px;
+  text-align: center;
+  color: #2563eb; /* bleu moyen */
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
 }
 
-.contact-section .contact-info {
-    display: inline-block;
-    margin: 0 20px;
-    background-color: #3182ce;
-    padding: 20px;
-    border-radius: 8px;
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  text-align: center;
 }
 
-.contact-section .contact-info h3 {
-    font-size: 1.5rem;
-    color: white;
+.contact-card {
+  background-color: #ffffff;
+  border: 1px solid #bae6fd; /* bord bleu clair */
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(14, 165, 233, 0.1);
+  transition: transform 0.2s ease;
 }
 
-.contact-section .contact-info p {
-    font-size: 1rem;
-    color: #e2e8f0;
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(14, 165, 233, 0.2);
 }
 
-.contact-section .contact-info a {
-    text-decoration: none;
-    color: white;
-    font-weight: 600;
+.contact-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0284c7; /* bleu vif */
+  margin-bottom: 0.5rem;
 }
 
-/* Boutons d'action */
-.action-btn {
-    background-color: #3182ce;
-    color: white;
-    padding: 15px 30px;
-    font-size: 1.25rem;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background-color 0.3s ease-in-out;
+.contact-card p {
+  color: #334155; /* gris-bleu foncé */
+}
+/* Style pour l'option de télémedecine */
+/* Style pour l'option de télémedecine avec animation */
+/* Style pour l'option de télémedecine */
+.telemedecine-option {
+  font-size: 1.5rem;
+  color: #1818c5;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
 }
 
-.action-btn:hover {
-    background-color: #2b6cb0;  /* Couleur plus foncée */
+/* Style pour la sous-phrase */
+.telemedecine-subtext {
+  display: block; /* Force la sous-phrase à être sur une nouvelle ligne */
+  font-size: 1.2rem;
+  color: #4caf50; /* Couleur différente pour mettre en valeur */
+  margin-top: 5px;
+  font-weight: 500;
 }
 
-/* Effet de transition au survol pour les sections */
-.service:hover, .testimonial:hover {
-    transform: translateY(-15px);  /* Un léger effet de remontée */
-}  
+/* Animation pour faire apparaître le texte progressivement */
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Le texte commence légèrement en bas */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Le texte revient à sa position normale */
+  }
+}
+/* Style pour l'option de télémedecine */
+.telemedecine-option {
+  font-size: 1.5rem;
+  color: #1818c5;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
+  animation: colorPulse 3s infinite alternate; /* Applique l'animation */
+}
+
+/* Style pour la sous-phrase */
+.telemedecine-subtext {
+  display: block; /* Force la sous-phrase à être sur une nouvelle ligne */
+  font-size: 1.2rem;
+  color: #0f07f1; /* Couleur différente pour mettre en valeur */
+  margin-top: 5px;
+  font-weight: 500;
+  animation: colorPulse 4s infinite alternate; /* Applique l'animation */
+}
+
+
+/* Animation pour un effet de surbrillance progressif */
+@keyframes colorPulse {
+  from {
+    color: #5993d1; /* Couleur initiale */
+  }
+  to {
+    color: #fb00c0; /* Couleur verte pour l'effet de surbrillance */
+  }
+}

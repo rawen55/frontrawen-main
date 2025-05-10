@@ -1,0 +1,22 @@
+<div class="chatbot-toggle" (click)="toggleChat()">
+    💬
+  </div>
+  
+  <div class="chat-window" *ngIf="isOpen">
+    <div class="chat-header">
+      DawiniBot
+      <button class="close-btn" (click)="toggleChat()">✖</button>
+    </div>
+  
+    <div class="chat-box">
+      <div *ngFor="let msg of messages" [class]="msg.sender">
+        <p>{{ msg.text }}</p>
+      </div>
+    </div>
+  
+    <div class="chat-input">
+      <input [(ngModel)]="userInput" placeholder="Votre message..." (keydown.enter)="sendMessage()" />
+      <button (click)="sendMessage()">Envoyer</button>
+    </div>
+  </div>
+  

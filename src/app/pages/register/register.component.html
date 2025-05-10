@@ -1,48 +1,74 @@
-<div class="container d-flex justify-content-center align-items-center vh-100">
-  <div class="card p-4 shadow-lg" style="width: 400px;">
-    <h2 class="text-center mb-4">Inscription</h2>
-
+<app-header></app-header>
+<div class="register-page">
+  <div class="form">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h2>Inscrivez_Vous</h2><br>
       <div class="mb-3">
-        <label for="name" class="form-label">Nom Complet</label>
-        <input type="text" class="form-control" id="name" formControlName="name" placeholder="Entrez votre nom" />
+        <label for="nom" class="form-label">Nom</label>
+        <input type="text" class="form-control" id="nom" formControlName="nom" placeholder="Entrez votre nom"
+          autocomplete="family-name" />
+        <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched" class="text-danger">
+          Le nom est requis.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="prenom" class="form-label">Prenom</label>
+        <input type="text" class="form-control" id="prenom" formControlName="prenom" placeholder="Entrez votre prenom"
+          autocomplete="given-name" />
+        <div *ngIf="form.get('prenom')?.invalid && form.get('prenom')?.touched" class="text-danger">
+          Le prénom est requis.
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" formControlName="email" placeholder="Entrez votre email" />
+        <input type="email" class="form-control" id="email" formControlName="email" placeholder="Entrez votre email"
+          autocomplete="email" required />
+        <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-danger">
+          <div *ngIf="form.get('email')?.errors?.['required']">L'email est requis.</div>
+          <div *ngIf="form.get('email')?.errors?.['email']">L'email n'est pas valide.</div>
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label">Mot de passe</label>
-        <input type="password" class="form-control" id="password" formControlName="password" placeholder="Entrez votre mot de passe" />
+        <input type="password" class="form-control" id="password" formControlName="password"
+          placeholder="Entrez votre mot de passe" autocomplete="new-password" required />
+        <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="text-danger">
+          Le mot de passe est requis.
+        </div>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Vous êtes :</label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" formControlName="role" value="patient" id="patient" />
+          <input class="form-check-input" type="radio" formControlName="role" value="patient" id="patient"
+            autocomplete="off" />
           <label class="form-check-label" for="patient">Patient</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" formControlName="role" value="medecin" id="medecin" />
+          <input class="form-check-input" type="radio" formControlName="role" value="medecin" id="medecin"
+            autocomplete="off" />
           <label class="form-check-label" for="medecin">Médecin</label>
+        </div>
+        <div *ngIf="form.get('role')?.invalid && form.get('role')?.touched" class="text-danger">
+          Le rôle est requis.
         </div>
       </div>
 
-      <!-- Champ spécialité visible uniquement si le rôle est Médecin -->
       <div *ngIf="form.value.role === 'medecin'" class="mb-3">
-        <label for="speciality" class="form-label">Spécialité</label>
-        <input type="text" class="form-control" id="speciality" formControlName="speciality" placeholder="Entrez votre spécialité" />
+        <label for="specialite" class="form-label">Spécialité</label>
+        <input type="text" class="form-control" id="specialite" formControlName="specialite"
+          placeholder="Entrez votre spécialité" autocomplete="organization" />
       </div>
 
-      <button type="submit" class="btn btn-success w-100">
-        <i class="fa fa-user-plus"></i> S'inscrire
-      </button>
+      <!-- Bouton d'inscription -->
+      <div class="mb-3">
+        <button type="submit" class="btn btn-success w-100" [disabled]="form.invalid">
+          <i class="fa fa-user-plus"></i> S'inscrire
+        </button>
+      </div>
     </form>
-
-    <p class="text-center mt-3">
-      Déjà inscrit ? <a routerLink="/login">Se connecter</a>
-    </p>
   </div>
 </div>

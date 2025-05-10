@@ -1,0 +1,48 @@
+<div class="profile-card">
+  <h2>Mon Profil</h2>
+
+  <div class="profile-photo" *ngIf="user?.photoUrl">
+    <img [src]="user.photoUrl" alt="Photo de profil">
+  </div>
+
+  <div class="upload-photo">
+    <label for="photo" class="custom-file-label">Télécharger une photo</label>
+    <input type="file" id="photo" (change)="onPhotoSelected($event)">
+  </div>
+  <div>
+    <div *ngIf="!user">
+      <p>Chargement des données utilisateur...</p>
+    </div>
+
+    <div>
+      <div class="profile-field-row">
+        <div class="profile-field">
+          <label>Nom :</label>
+          <span>{{ user.nom }}</span>
+        </div>
+        <div class="profile-field">
+          <label>Prénom :</label>
+          <span>{{ user.prenom }}</span>
+        </div>
+      </div>
+
+      <div class="profile-field">
+        <label>Email :</label>
+        <span>{{ user.email }}</span>
+      </div>
+    </div>
+    <div class="profile-field">
+      <label>Rôle :</label>
+      <span>{{ user.role }}</span>
+    </div>
+
+    <div class="profile-field" *ngIf="user.specialite">
+      <label>Spécialité :</label>
+      <span>{{ user.specialite }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="!user">
+    <p>Chargement...</p>
+  </div>
+</div>

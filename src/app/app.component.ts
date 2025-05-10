@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 
 
 @Component({
-  
+  imports: [RouterOutlet, RouterModule],
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, ], 
+  
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -16,4 +16,5 @@ goToLogin() {
 throw new Error('Method not implemented.');
 }
   title = 'telemedecine-frontend';
+  
 }

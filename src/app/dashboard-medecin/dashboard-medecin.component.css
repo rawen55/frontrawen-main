@@ -1,0 +1,118 @@
+/* Reset de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Container général */
+.container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f8fb;
+}
+.sidebar {
+  transform: translateX(-100%); /* CACHÉ par défaut sur mobile */
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0); /* AFFICHÉ quand ouvert */
+}
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #0077b6;
+  color: white;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+}
+
+.sidebar h1.logo {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.sidebar nav ul {
+  list-style: none;
+}
+
+.sidebar nav ul li {
+  margin: 20px 0;
+}
+
+.sidebar nav ul li a,
+.sidebar nav ul li button {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  background: transparent;
+  border: none;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li button:hover,
+.sidebar nav ul li a.active {
+  background-color: #00b4d8;
+}
+
+/* Bouton toggle */
+.sidebar-toggle-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
+  margin-top: -7px;
+  background-color: #0077b6;
+  color: white !important;
+  border: none;
+  font-size: 1.8rem;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  display: none; /* Ne pas oublier ce comportement */
+}
+
+/* Rendre visible uniquement sur mobile */
+@media (max-width: 768px) {
+  .sidebar-toggle-btn {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    height: 100vh;
+    z-index: 999;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+

@@ -1,113 +1,219 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { FilterPipe } from '../../../filter.pipe';
 import { RendezVousService } from '../../../services/rendez-vous.service';
-
+import { AuthService } from '../../../services/auth.service';
+import { RendezVous } from '../../../rendez-vous.model';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+// Removed duplicate import of Swal
 @Component({
   selector: 'app-liste-rendez-vous',
-  templateUrl: './liste-rendez-vous.component.html',
-  styleUrls: ['./liste-rendez-vous.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, FilterPipe]
+  imports: [CommonModule, FormsModule],
+  templateUrl: './liste-rendez-vous.component.html',
+  styleUrls: ['./liste-rendez-vous.component.css']
 })
 export class ListeRendezVousComponent implements OnInit {
+  rendezVousList: RendezVous[] = [];
+  newRendezVousCount: number = 0;
   selectedRdvId: number | null = null;
   showCalendar: boolean = false;
   newDate: string = '';
-  searchText: string = '';
-  rendezVousList: any[] = [];
-  filteredRendezVous: any[] = [];
-  confirmAction: string | null = null;
   statusFilter: string = '';
-  router: any;
-
-  constructor(private rendezVousService: RendezVousService) {}
+  selectedDate: string = '';
+  page: number = 0;
+  size: number = 5;
+  totalPages: number = 0;
+  currentRole: string | null = null;
+  filteredRendezVous = [...this.rendezVousList];
+  dateRange = {
+    startDate: '',
+    endDate: ''
+  };
+  filter = {
+    searchName: '',
+    searchPrenom: '',
+    searchDate: ''
+  };
+  constructor(
+    private rendezVousService: RendezVousService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    // Tu peux utiliser l'un ou l'autre :
-    // this.getRendezVous(); // depuis le backend
-    this.loadFakeData(); // localement
+    this.currentRole = this.authService.getUserRole();
+    console.log('Role brut issu du token:', this.currentRole);
+    this.loadRendezVous();
+  
+    // Vérifiez les nouveaux rendez-vous toutes les 30 secondes
+    setInterval(() => {
+      this.loadRendezVous();
+    }, 30000);
   }
-
-  // Données de test locales
-  loadFakeData(): void {
-    this.rendezVousList = [
-      {
-        id: 1,
-        date: '2025-04-12T10:00',
-        statut: 'En attente',
-        patient: { nom: 'Ali', prenom: 'Ben Salah' }
+  
+  loadRendezVous(): void {
+    this.rendezVousService.getRendezVousForLoggedMedecin().subscribe({
+      next: data => {
+        console.log('Données des rendez-vous:', data); // Affiche les données brutes
+        this.rendezVousList = data;
+  
+        // Comptez les rendez-vous en attente
+        this.newRendezVousCount = this.rendezVousList.filter(rdv => rdv.statut === 'EN_ATTENTE').length;
+  
+        this.applyFilters();
+        console.log('Nouveaux rendez-vous en attente:', this.newRendezVousCount);
       },
-      {
-        id: 2,
-        date: '2025-04-13T15:30',
-        statut: 'Confirmé',
-        patient: { nom: 'Sarra', prenom: 'Trabelsi' }
-      },
-      {
-        id: 3,
-        date: '2025-04-14T09:00',
-        statut: 'Refusé',
-        patient: { nom: 'Mounir', prenom: 'Gharbi' }
+      error: (err: any) => {
+        console.error("Erreur lors du chargement des rendez-vous", err);
       }
-    ];
-    this.filteredRendezVous = [...this.rendezVousList];
+    });
+  
+  }
+  filterRendezVous(): void {
+    this.filteredRendezVous = this.rendezVousList.filter(rendezVous => {
+      const rdvDate = new Date(rendezVous.date);
+      const startDate = this.dateRange.startDate ? new Date(this.dateRange.startDate) : null;
+      const endDate = this.dateRange.endDate ? new Date(this.dateRange.endDate) : null;
+  
+      const isWithinDateRange =
+        (!startDate || rdvDate >= startDate) &&
+        (!endDate || rdvDate <= endDate);
+  
+      const matchesName = !this.filter.searchName || 
+        (rendezVous.patient?.nom && rendezVous.patient.nom.toLowerCase().includes(this.filter.searchName.toLowerCase()));
+  
+      const matchesPrenom = !this.filter.searchPrenom || 
+        (rendezVous.patient?.prenom && rendezVous.patient.prenom.toLowerCase().includes(this.filter.searchPrenom.toLowerCase()));
+  
+      return isWithinDateRange && matchesName && matchesPrenom;
+    });
+  }
+  applyFilters(): void {
+    let result = [...this.rendezVousList];
+
+    if (this.statusFilter) {
+      result = result.filter(rdv => rdv.statut === this.statusFilter);
+    }
+
+    if (this.selectedDate) {
+      const selected = new Date(this.selectedDate).toDateString();
+      result = result.filter(rdv => new Date(rdv.date).toDateString() === selected);
+    }
+
+    this.totalPages = Math.ceil(result.length / this.size);
+    this.filteredRendezVous = result.slice(this.page * this.size, (this.page + 1) * this.size);
   }
 
-  // Si tu veux activer le backend, utilise cette méthode
-  getRendezVous(): void {
-    this.rendezVousService.getAllRendezVous().subscribe((data: any) => {
-      this.rendezVousList = data;
-      this.filteredRendezVous = this.rendezVousList;
-      console.log(this.rendezVousList);
+  onPageChange(delta: number): void {
+    const newPage = this.page + delta;
+    if (newPage >= 0 && newPage < this.totalPages) {
+      this.page = newPage;
+      this.applyFilters();
+    }
+  }
+
+  onDateChange(date: string): void {
+    this.selectedDate = date;
+    this.page = 0;
+    this.applyFilters();
+  }
+
+
+
+  acceptRendezVous(id: number): void {
+    this.rendezVousService.updateStatutRendezVous(id, 'CONFIRMÉ').subscribe({
+      next: () => {
+        // Met à jour le statut du rendez-vous dans la liste locale
+        const rdv = this.rendezVousList.find(r => r.id === id);
+        if (rdv) {
+          rdv.statut = 'CONFIRMÉ';
+        }
+  
+        // Applique les filtres après la mise à jour
+        this.applyFilters();
+  
+        // Affiche une alerte de succès
+        alert('Rendez-vous accepté avec succès.');
+  
+        // Redirection vers la page de diagnostic
+        this.router.navigate(['dashboard/appointments/diagnostic', id]);
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'acceptation du rendez-vous', err);
+        alert('Une erreur est survenue lors de l\'acceptation du rendez-vous.');
+      }
     });
   }
 
-  filterRendezVous(): void {
-    if (this.statusFilter) {
-      this.filteredRendezVous = this.rendezVousList.filter(rdv => rdv.statut === this.statusFilter);
-    } else {
-      this.filteredRendezVous = this.rendezVousList;
+
+ 
+
+refuserRendezVous(id: number): void {
+  Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: 'Voulez-vous vraiment supprimer ce rendez-vous ?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.rendezVousService.supprimerRendezVous(id).subscribe({
+        next: () => {
+          this.rendezVousList = this.rendezVousList.filter(rdv => rdv.id !== id);
+          Swal.fire(
+            'Supprimé !',
+            'Le rendez-vous a été supprimé avec succès.',
+            'success'
+          );
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression du rendez-vous :', err);
+          Swal.fire(
+            'Erreur',
+            'Une erreur est survenue lors de la suppression du rendez-vous.',
+            'error'
+          );
+        }
+      });
     }
-  }
-  goToRendezVous() {
-    this.router.navigate(['/liste-rendez-vous']);
-  }
-  acceptRendezVous(id: number): void {
-    console.log('Accepté', id);
-    this.rendezVousList.find(r => r.id === id)!.statut = 'Confirmé';
-    this.filterRendezVous();
-  }
+  });
+}
 
-  rejectRendezVous(id: number): void {
-    console.log('Refusé', id);
-    this.rendezVousList.find(r => r.id === id)!.statut = 'Refusé';
-    this.filterRendezVous();
+  onReportClick(rdvId: number): void {
+    this.selectedRdvId = rdvId; // Identifie le rendez-vous à reporter
+    this.showCalendar = true; // Affiche le formulaire de report
   }
-
-  onRendezVousClick(rdv: any): void {
-    alert(`Rendez-vous avec ${rdv.patient?.prenom} ${rdv.patient?.nom} le ${rdv.date}`);
-  }
-
-  onReportClick(rdv: any): void {
-    this.selectedRdvId = rdv.id;
-    this.showCalendar = true;
-  }
-
-  submitNewDate(id: number): void {
-    if (!this.newDate) {
+  submitNewDate(): void {
+    if (!this.newDate || this.selectedRdvId === null) {
       alert('Veuillez sélectionner une nouvelle date.');
       return;
     }
-    const rdv = this.rendezVousList.find(r => r.id === id);
-    if (rdv) {
-      rdv.date = this.newDate;
-      rdv.statut = 'Reporté';
-    }
-    this.showCalendar = false;
-    this.newDate = '';
-    this.filterRendezVous();
+
+
+    this.rendezVousService.reportRendezVous(this.selectedRdvId, this.newDate).subscribe({
+      next: () => {
+        const rdv = this.rendezVousList.find(r => r.id === this.selectedRdvId);
+        if (rdv) {
+          rdv.date = new Date(this.newDate);
+          rdv.statut = 'REPORTÉ';
+        }
+        this.showCalendar = false;
+        this.newDate = '';
+        this.selectedRdvId = null;
+        this.applyFilters();
+      },
+      error: (err: any) => {
+        if (err.status === 403) {
+          alert("Vous n'avez pas la permission de réaliser cette action.");
+        } else {
+          console.error("Erreur lors du report du rendez-vous", err);
+        }
+      }
+    });
   }
 }

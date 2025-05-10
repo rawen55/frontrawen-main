@@ -1,0 +1,18 @@
+<div class="container" *ngIf="loading">Chargement...</div>
+
+<div class="container" *ngIf="!loading">
+  <h2>Préconsultation pour le rendez-vous</h2>
+  <p><strong>Description du rendez-vous :</strong> {{ description }}</p>
+
+  <h3>Documents fournis par le patient :</h3>
+  <ul>
+    <li *ngFor="let document of documents">
+      <a [href]="document.url" target="_blank">{{ document.nom }}</a>
+    </li>
+  </ul>
+
+  <h3>Notes de préconsultation</h3>
+  <textarea [(ngModel)]="notesPreconsultation" placeholder="Ajouter des observations initiales..."></textarea>
+
+  <button (click)="savePreconsultation()">Enregistrer les notes</button>
+</div>

@@ -1,56 +1,121 @@
 /* Styles globaux */
 form {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  /* Titre */
-  h2 {
-    text-align: center;
-    color: #333;
-  }
-  
-  /* Labels */
-  label {
-    font-weight: bold;
-    color: #555;
-  }
-  
-  /* Champs de saisie */
-  input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  /* Champs focus */
-  input:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  /* Bouton */
-  button {
-    background: #007bff;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  button:hover {
-    background: #0056b3;
-  }
-  
+  width: 600px;
+  height: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #ffffff8a;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Titre */
+h2 {
+  text-align: center;
+  color: #000 !important;
+}
+
+/* Labels */
+label {
+  font-weight: bold;
+  color: #555;
+}
+
+/* Champs de saisie */
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Champs focus */
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Bouton */
+button {
+  background: #193655;
+  color: white;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #0056b3;
+}
+/* Conteneur principal de la page */
+.login-page {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('/assets/images/pagelogin1.jpg') no-repeat center center/cover;
+}
+
+/* Conteneur du formulaire */
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9); /* Fond blanc semi-transparent */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Titre */
+h2 {
+  text-align: center;
+  color: #0d94e3;
+}
+
+/* Labels */
+label {
+  font-weight: bold;
+  color: #555;
+}
+
+/* Champs de saisie */
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Champs focus */
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Bouton */
+button {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #0056b3;
+}

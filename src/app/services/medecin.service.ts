@@ -1,42 +1,36 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { RendezVous } from '../rendez-vous.model';
+
+// Ton modèle Medecin
+export class Medecin {
+  id!: number;
+  nom!: string;
+  prenom!: string;
+  email!: string;
+  specialite!: string;
+}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class MedecinService {
-  private baseUrl = 'http://localhost:8080/api/medecins';
+  getMedecinById(id: number): Observable<{ prenom: string; nom: string }> {
+    // Replace with actual HTTP call or logic
+    return this.http.get<{ prenom: string; nom: string }>(`/api/medecins/${id}`);
+  }
+  private apiUrl = 'http://localhost:8080/api/medecin';
 
   constructor(private http: HttpClient) {}
 
-  // Récupérer tous les médecins
-  getAllMedecins(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl);
-  }
+  getAllMedecins(): Observable<Medecin[]> {
+    const token = localStorage.getItem('token'); // récupère ton token stocké
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-  // Récupérer un médecin par ID
-  getMedecinById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${id}`);
-  }
-
-  // Rechercher des médecins par nom ou spécialité (si l’API le supporte)
-  searchMedecins(query: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/search?q=${query}`);
-  }
-
-  // Ajouter un médecin
-  addMedecin(medecin: any): Observable<any> {
-    return this.http.post(this.baseUrl, medecin);
-  }
-
-  // Modifier un médecin
-  updateMedecin(id: number, medecin: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, medecin);
-  }
-
-  // Supprimer un médecin
-  deleteMedecin(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+    return this.http.get<Medecin[]>(this.apiUrl, { headers });
   }
 }

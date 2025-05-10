@@ -1,25 +1,46 @@
-<div class="form-container">
-    <h2 class="form-title">Demander un Rendez-vous</h2>
-    <form>
-      <div class="form-group">
-        <label for="name">Nom Complet</label>
-        <input type="text" id="name" formControlName="name" class="form-control" placeholder="Entrez votre nom">
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" formControlName="email" class="form-control" placeholder="Entrez votre email">
-      </div>
-      <div class="form-group">
-        <label for="date">Date du Rendez-vous</label>
-        <input type="date" id="date" formControlName="date" class="form-control" placeholder="Sélectionnez la date">
-      </div>
-      <div>
-            <label>Médecin:</label>
-            <input type="text" formControlName="medecin" readonly></div>
-
-    <div>
-      
-       <button type="submit" class="btn btn-submit">Envoyer</button> </div>
-    </form>
-  </div>
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-4">Demander un rendez-vous avec {{NomMedecin}}</h1>
   
+
+  <form [formGroup]="demandeRdvForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <!-- Date -->
+    <div class="mb-4">
+      <label for="date" class="block text-sm font-medium text-gray-700">Date du rendez-vous</label>
+      <input 
+        type="date" 
+        id="date" 
+        formControlName="date" 
+        class="w-full p-2 border border-gray-300 rounded-md"
+      />
+    </div>
+
+    <!-- Description -->
+    <div class="mb-4">
+      <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+      <textarea 
+        id="description" 
+        formControlName="description" 
+        rows="4" 
+        class="w-full p-2 border border-gray-300 rounded-md"
+        placeholder="Décrivez votre problème de santé..."
+      ></textarea>
+    </div>
+
+    <!-- Upload de document -->
+    <div class="mb-4">
+      <label for="document" class="block text-sm font-medium text-gray-700">Télécharger des documents</label>
+      <input type="file" (change)="onFileSelected($event)" />
+    </div>
+
+    <!-- Bouton envoyer -->
+    <div class="mb-4">
+      <button 
+        type="submit" 
+        [disabled]="demandeRdvForm.invalid"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Demander un rendez-vous
+      </button>
+    </div>
+  </form>
+</div>

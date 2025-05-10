@@ -1,71 +1,52 @@
-<div class="container mx-auto p-4">
-  <h2 class="text-2xl font-bold mb-4">Liste des Rendez-Vous</h2>
-<!-- Bouton pour revenir à l'accueil -->
+<div class="notification-container">
+  <a routerLink="/mes-rendez-vous" class="notification-link">
+    <span *ngIf="newRendezVousCount > 0" class="notification-badge">
+      {{ newRendezVousCount }}
+    </span>
+  </a>
 
 
-  <!-- Barre de recherche -->
-  <div class="mb-4">
-    <label for="search" class="mr-2">Rechercher</label>
-    <input 
-      type="text" 
-      id="search" 
-      [(ngModel)]="searchText" 
-      placeholder="Recherche..." 
-      class="border px-2 py-1"
-    />
+  <form (ngSubmit)="filterRendezVous()">
+    <!-- Filtrage par nom -->
+    <label for="searchName">Nom :</label>
+    <input type="text" id="searchName" [(ngModel)]="filter.searchName" name="searchName" placeholder="Nom">
+
+    <!-- Filtrage par prénom -->
+    <label for="searchPrenom">Prénom :</label>
+    <input type="text" id="searchPrenom" [(ngModel)]="filter.searchPrenom" name="searchPrenom" placeholder="Prénom">
+<div></div>
+
+        <!-- Filtrage par plage de dates -->
+        <label for="startDate">De :</label>
+        <input type="date" id="startDate" [(ngModel)]="dateRange.startDate" name="startDate">
+    
+        <label for="endDate">À :</label>
+        <input type="date" id="endDate" [(ngModel)]="dateRange.endDate" name="endDate">
+    
+        <button type="submit" class="btn">Filtrer</button>
+      </form>
+    </div>
+    
+
+
+<div class="rendez-vous-list">
+  <div *ngFor="let rdv of filteredRendezVous" class="rdv-card">
+    <p><strong>Date :</strong> {{ rdv.date | date:'short' }}</p>
+    <p><strong>Patient :</strong> {{ rdv.patient?.prenom }} {{ rdv.patient?.nom }}</p>
+    <p><strong>Statut : EN_ATTENTE</strong> {{ rdv.statut }}</p>
+
+    <div class="actions">
+
+      <button (click)="acceptRendezVous(rdv.id)" [disabled]="rdv.statut === 'CONFIRMÉ'">✅ Accepter</button>
+      <button class="btn btn-danger" (click)="refuserRendezVous(rdv.id)">Refuser</button>
+      <button (click)="onReportClick(rdv.id)">📅 Reporter</button>
+    </div>
   </div>
-
-  <!-- Liste des rendez-vous -->
-  <ul class="list-none">
-    <li *ngFor="let rdv of filteredRendezVous | filter: searchText" class="mb-2 p-4 border rounded shadow cursor-pointer" 
-        (click)="onRendezVousClick(rdv)">
-      <div>
-        <strong>Date :</strong> {{ rdv.date }} <br>
-        <strong>Heure :</strong> {{ rdv.heure }} <br>
-        <strong>Patient :</strong> {{ rdv.patient?.nom }} <br>
-        <strong>Statut :</strong> {{ rdv.statut }} <br>
-      </div>
-
-      <!-- Boutons pour accepter, refuser ou reporter -->
-      <div class="mt-2">
-        <button 
-          *ngIf="rdv.statut === 'En attente'" 
-          (click)="acceptRendezVous(rdv.id)" 
-          class="bg-blue-500 text-white px-4 py-2 rounded mr-2">
-          Accepter
-        </button>
-
-        <button 
-          *ngIf="rdv.statut === 'En attente'" 
-          (click)="rejectRendezVous(rdv.id)" 
-          class="bg-red-500 text-white px-4 py-2 rounded mr-2">
-          Refuser
-        </button>
-
-        <button 
-          *ngIf="rdv.statut === 'Confirmé'" 
-          (click)="onReportClick(rdv)" 
-          class="bg-yellow-500 text-white px-4 py-2 rounded">
-          Reporter
-        </button>
-      </div>
-
-      <!-- Affichage du calendrier pour reporter -->
-      <div *ngIf="rdv.id === selectedRdvId && showCalendar" class="mt-4">
-        <label for="newDate" class="mr-2">Nouvelle Date :</label>
-        <input 
-          type="date" 
-          id="newDate" 
-          [(ngModel)]="newDate" 
-          class="border px-2 py-1"
-        />
-        <button 
-          (click)="submitNewDate(rdv.id)" 
-          class="bg-green-500 text-white px-4 py-2 rounded mt-2">
-          Valider la nouvelle date
-        </button>
-       
-      </div>
-    </li>
-  </ul>
 </div>
+
+<div *ngIf="showCalendar" class="report-calendar">
+  <h4>Reporter le rendez-vous</h4>
+  <input type="datetime-local" [(ngModel)]="newDate">
+  <button (click)="submitNewDate()">Valider</button>
+</div>
+

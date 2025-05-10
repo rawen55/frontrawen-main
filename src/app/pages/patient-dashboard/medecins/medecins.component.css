@@ -1,0 +1,177 @@
+/* Style pour la table des médecins */
+table {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Style pour l'entête de la table */
+  thead {
+    background-color: #e2e8f0; /* Fond gris clair */
+  }
+  
+  th, td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  /* Effet au survol des lignes */
+  tbody tr:hover {
+    background-color: #f1f5f9; /* Fond clair au survol */
+    cursor: pointer;
+  }
+  
+  /* Style du bouton "Demander un rendez-vous" */
+  .btn-rdv {
+    background-color: #4299e1; /* Bleu */
+    color: white;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  /* Effet de survol du bouton */
+  .btn-rdv:hover {
+    background-color: #3182ce; /* Couleur légèrement plus foncée */
+  }
+  
+  /* Effet actif du bouton (lorsqu'il est cliqué) */
+  .btn-rdv:active {
+    transform: scale(0.98); /* Effet de réduction au clic */
+  }
+  
+  /* Ajouter un peu de marge pour le container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 16px;
+  }
+  /* Style pour la barre de recherche */
+.search-bar {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .search-bar:focus {
+    border-color: #4299e1; /* Change la couleur du bord au focus */
+  }
+  /* Conteneur principal */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9; /* Fond clair */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Titre */
+h1 {
+  text-align: center;
+  color: #1565c0; /* Bleu foncé */
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Barre de recherche */
+.search-bar {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+  border-color: #1565c0; /* Bleu foncé */
+  box-shadow: 0 0 8px rgba(21, 101, 192, 0.3); /* Ombre bleue */
+  outline: none;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: #1565c0; /* Bleu foncé */
+  color: white;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Gris clair */
+}
+
+tbody tr:hover {
+  background-color: #e3f2fd; /* Bleu clair au survol */
+}
+
+/* Bouton "Demander un rendez-vous" */
+.btn-rdv {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #4caf50; /* Vert */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-rdv:hover {
+  background-color: #45a049; /* Vert plus foncé */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .search-bar {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  th, td {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .btn-rdv {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}

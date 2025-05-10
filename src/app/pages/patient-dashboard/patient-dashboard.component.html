@@ -1,0 +1,26 @@
+<!-- Bouton pour toggle (mobile) -->
+<button class="toggle-sidebar" (click)="toggleSidebar()">☰ Menu</button>
+
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.hidden]="isSidebarHidden">
+    <h1 class="logo">Dawini</h1>
+    <nav>
+      <ul>
+        <li><a routerLink="/patient-dashboard/Accueil" routerLinkActive="active">🏠 Accueil</a></li>
+        <li><a routerLink="/patient-dashboard/mesrendez-vous" routerLinkActive="active">📅 Mes Rendez-vous</a></li>
+        <li><a routerLink="/patient-dashboard/medecins" routerLinkActive="active">👨‍⚕️ Médecins</a></li>
+        <li><a routerLink="/patient-dashboard/notifications" routerLinkActive="active">🔔 Notifications</a></li>
+
+        <li><a routerLink="/patient-dashboard/profil" routerLinkActive="active">👤 Mon Profil</a></li>
+        <li><button (click)="logout()">🚪 Déconnexion</button></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Contenu principal -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+   
+  </main>
+</div>
