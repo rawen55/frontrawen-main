@@ -7,12 +7,16 @@ import { RendezVous } from '../rendez-vous.model';
   providedIn: 'root'
 })
 export class RendezVousService {
- 
- 
+  
   private apiUrl = 'http://localhost:8080/api/rendezvous'; // Ton endpoint backend
   headers: HttpHeaders | Record<string, string | string[]> | undefined;
 
   constructor(private http: HttpClient) {}
+
+  getNewConsultations(): Observable<number> {
+    // Replace with the correct backend endpoint to fetch new consultations
+    return this.http.get<number>(`${this.apiUrl}/medecin/new-consultations`);
+  }
 
   // Pour créer un rendez-vous
   createRendezVous(formData: FormData): Observable<any> {
@@ -41,9 +45,33 @@ export class RendezVousService {
       { headers }
     );
   }
-getWeeklyStats(): Observable<any> {
-  return this.http.get<any>('http://localhost:8080/api/rendezvous/stats/weekly');
-}
+  
+  getWeeklyStats(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<any>('http://localhost:8080/api/rendezvous/stats/weekly', { headers });
+  }
+
+  getMonthlyStats(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<any>('http://localhost:8080/api/rendezvous/stats/monthly', { headers });
+  }
+  getYearlyStats(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.http.get<any>('http://localhost:8080/api/rendezvous/stats/yearly', { headers });
+  }
+
   supprimerRendezVous(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }

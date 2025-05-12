@@ -16,6 +16,6 @@ import { AppRoutingModule } from '../../app-routing.module';
     AppRoutingModule,
     ReactiveFormsModule 
   ],
-  exports: [FormRendezVousComponent]  
+  exports: [FormRendezVousComponent,]  
 })
 export class RendezvousModule { }

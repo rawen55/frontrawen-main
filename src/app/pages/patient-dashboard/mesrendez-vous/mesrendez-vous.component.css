@@ -1,74 +1,123 @@
 /* Conteneur principal */
 .mes-rendez-vous {
-    margin: 20px auto;
-    max-width: 800px;
-    padding: 20px;
-    background-color: #e3f2fd; /* Bleu clair */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', sans-serif;
+  margin: 30px auto;
+  max-width: 900px;
+  padding: 25px;
+  background-color: #f8fbff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.6s ease-in;
+}
+
+/* Animation douce à l'apparition */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Titre */
+.mes-rendez-vous h2 {
+  text-align: center;
+  color: #0d47a1;
+  margin-bottom: 25px;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+/* Menu de filtre */
+.mes-rendez-vous select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: white;
+  transition: border-color 0.3s;
+}
+.mes-rendez-vous select:hover {
+  border-color: #1976d2;
+}
+
+/* Table stylisée */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.table thead {
+  background-color: #bbdefb; /* Bleu clair */
+  color: #0d47a1;            /* Texte bleu foncé */
+  font-weight: bold;
+}
+
+.table th,
+.table td {
+  text-align: center;
+  padding: 14px;
+  border: 1px solid #2971d7;
+  transition: background-color 0.3s;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #e3f2fd;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #f1f9ff;
+}
+
+.table tbody tr:hover {
+  background-color: #bbdefb;
+}
+
+/* Statut badges */
+.badge-attente,
+.badge-accepte,
+.badge-refuse {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.badge-attente {
+  background-color: #ff9800;
+  color: white;
+}
+
+.badge-accepte {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.badge-refuse {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.badge-attente:hover,
+.badge-accepte:hover,
+.badge-refuse:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mes-rendez-vous {
+    padding: 15px;
   }
-  
-  /* Titre */
-  .mes-rendez-vous h2 {
-    text-align: center;
-    color: #1565c0; /* Bleu foncé */
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  /* Table */
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  .table thead {
-    background-color: #1565c0; /* Bleu foncé */
-    color: white;
-  }
-  
+
   .table th,
   .table td {
-    text-align: left;
-    padding: 12px;
-    border: 1px solid #ddd;
+    font-size: 13px;
+    padding: 10px;
   }
-  
-  .table tbody tr:nth-child(even) {
-    background-color: #bbdefb; /* Bleu clair */
+
+  .mes-rendez-vous h2 {
+    font-size: 22px;
   }
-  
-  .table tbody tr:nth-child(odd) {
-    background-color: #e3f2fd; /* Bleu encore plus clair */
-  }
-  
-  .table tbody tr:hover {
-    background-color: #90caf9; /* Bleu clair au survol */
-  }
-  
-  /* Statut */
-  .table td:last-child {
-    font-weight: bold;
-    text-transform: capitalize;
-    color: #0d47a1; /* Bleu très foncé */
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .mes-rendez-vous {
-      padding: 10px;
-    }
-  
-    .table th,
-    .table td {
-      font-size: 14px;
-      padding: 8px;
-    }
-  
-    .mes-rendez-vous h2 {
-      font-size: 20px;
-    }
-  }
+}

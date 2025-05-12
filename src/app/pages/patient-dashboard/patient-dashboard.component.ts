@@ -3,7 +3,7 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 
 @Component({
-  imports: [RouterOutlet,RouterModule],
+  imports: [RouterOutlet, RouterModule,],
   selector: 'app-patient-dashboard',
   templateUrl: './patient-dashboard.component.html',
   styleUrls: ['./patient-dashboard.component.css']

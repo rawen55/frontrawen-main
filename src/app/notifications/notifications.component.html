@@ -1,0 +1,14 @@
+<div class="notification-wrapper" (click)="toggleNotifications()">
+  <span class="icon-container">
+    <i class="fas fa-bell"></i>
+    <span class="badge" *ngIf="notifications.length > 0">{{ notifications.length }}</span>
+  </span>
+
+  <div class="notification-dropdown" *ngIf="showNotifications">
+    <p *ngIf="notifications.length === 0">Aucune notification</p>
+    <ul>
+      <li *ngFor="let notif of notifications">{{ notif.message }}</li>
+    </ul>
+  </div>
+</div>
+

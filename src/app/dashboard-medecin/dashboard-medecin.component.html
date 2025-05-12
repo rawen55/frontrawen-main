@@ -11,7 +11,13 @@
       <ul>
         <li><a routerLink="/dashboard" routerLinkActive="active">🏠 Bienvenue</a></li>
         <li><a routerLink="/dashboard/statistique" routerLinkActive="active"> statistique</a></li>
-        <li><a routerLink="/dashboard/appointments" routerLinkActive="active">📅 Mes patients</a></li>
+        <li><a routerLink="/dashboard/appointments" routerLinkActive="active" (click)="resetConsultationCount()">
+          📅 Mes patients
+        <span *ngIf="newConsultationCount > 0" class="notification-badge">
+          {{ newConsultationCount }}
+        </span>
+      </a>
+    </li>
         <li><a routerLink="/dashboard/patients" routerLinkActive="active">📁 Dossiers Patients</a></li>
         <li><a routerLink="/dashboard/profil" routerLinkActive="active">👤 Profil</a></li>
         <li><button (click)="logout()">🚪 Déconnexion</button></li>

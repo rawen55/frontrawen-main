@@ -27,11 +27,13 @@ import { AuthService } from './services/auth.service';
 import { MesRendezVousComponent } from './pages/patient-dashboard/mesrendez-vous/mesrendez-vous.component';
 import { StatistiqueComponent } from './pages/medecin/statistique/statistique.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { FormConsultationComponent } from './form-consultation/form-consultation.component';
 
 NgModule({
   declarations: [
     AdminDashboardComponent,
     StatistiqueComponent,
+    FormConsultationComponent,
     DiagnosticComponent,
     ContactUsComponent,
    ProfilComponent,
@@ -51,7 +53,8 @@ NgModule({
     DashboardMedecinComponent,
     FormRendezVousComponent,
     AppointmentsComponent,
-    ListeRendezVousComponent
+    ListeRendezVousComponent,
+  
   ],
   imports: [
     AppRoutingModule,

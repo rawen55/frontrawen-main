@@ -1,5 +1,5 @@
 export interface UserProfile {
-    photoUrl(arg0: string, photoUrl: any): unknown;
+    photoUrl: string;
     id: number;
     email: string;
     nom: string;

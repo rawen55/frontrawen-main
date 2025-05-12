@@ -10,6 +10,7 @@ export class Medecin {
   prenom!: string;
   email!: string;
   specialite!: string;
+adresse: any;
 }
 
 

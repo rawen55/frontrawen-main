@@ -62,7 +62,14 @@
         <input type="text" class="form-control" id="specialite" formControlName="specialite"
           placeholder="Entrez votre spécialité" autocomplete="organization" />
       </div>
-
+  <div *ngIf="form.value.role === 'medecin'" class="mb-3">
+  <label for="adresse" class="form-label">Adresse</label>
+  <input type="text" class="form-control" id="adresse" formControlName="adresse"
+    placeholder="Entrez votre adresse" autocomplete="street-address" />
+  <div *ngIf="form.get('adresse')?.invalid && form.get('adresse')?.touched" class="text-danger">
+    L'adresse est requise.
+  </div>
+</div>
       <!-- Bouton d'inscription -->
       <div class="mb-3">
         <button type="submit" class="btn btn-success w-100" [disabled]="form.invalid">

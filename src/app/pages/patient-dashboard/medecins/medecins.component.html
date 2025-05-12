@@ -1,42 +1,35 @@
 <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Liste des médecins disponibles</h1>
-  
-    <!-- Barre de recherche -->
-    <div class="mb-4">
-      <input 
-        type="text" 
-        [(ngModel)]="searchQuery" 
-        (input)="searchMedecins()" 
-        placeholder="Rechercher par nom ou spécialité..." 
-        class="search-bar"
-      />
-    </div>
-    
-    <!-- Table des médecins -->
-    <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-      <thead class="bg-gray-200">
-        <tr>
-          <th class="py-2 px-4">Nom</th>
-          <th class="py-2 px-4">Prénom</th>
-          <th class="py-2 px-4">Email</th>
-          <th class="py-2 px-4">Spécialité</th>
-          <th class="py-2 px-4">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let medecin of filteredMedecins" class="border-b">
-          <td class="py-2 px-4">{{ medecin.nom }}</td>
-          <td class="py-2 px-4">{{ medecin.prenom }}</td>
-          <td class="py-2 px-4">{{ medecin.email }}</td>
-          <td class="py-2 px-4">{{ medecin.specialite }}</td>
-          <td class="py-2 px-4">
-            <button class="btn-rdv"
-            [routerLink]="['/form-rendez-vous', medecin.id]">
-      Demander un rendez-vous
-    </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <h1 class="text-2xl font-bold mb-4">Liste des médecins disponibles</h1>
+
+  <!-- Barre de recherche -->
+  <div class="mb-4">
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery" 
+      (input)="searchMedecins()" 
+      placeholder="Rechercher par nom ou spécialité..." 
+      class="search-bar"
+    />
   </div>
-  
+
+  <!-- Liste des cartes des médecins -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div *ngFor="let medecin of filteredMedecins" class="card bg-white shadow-md rounded-lg p-4">
+      <h2 class="text-xl font-bold mb-2">🩺 Dr {{ medecin.nom }} {{ medecin.prenom }}</h2>
+      <p class="text-gray-700 mb-1">📍 <strong>Adresse :</strong> {{ medecin.adresse }}</p>
+      <p class="text-gray-700 mb-4">Spécialité : {{ medecin.specialite }}</p>
+
+      <!-- Boutons -->
+      <div class="flex justify-between">
+        <button class="btn-rdv"
+                [routerLink]="['/form-rendez-vous', medecin.id]">
+          Demander un rendez-vous
+        </button>
+        <button class="btn-consultation"
+                [routerLink]="['/form-consultation', medecin.id]">
+          Demander une consultation
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+canvas {
+  max-width: 800px;
+  width: 100%;
+}

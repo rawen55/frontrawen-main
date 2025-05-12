@@ -8,32 +8,62 @@ import { RendezVousService } from '../../../services/rendez-vous.service';
   styleUrls: ['./statistique.component.css']
 })
 export class StatistiqueComponent implements OnInit {
+  weeklyStats: any;
+  monthlyStats: any;
+  yearlyStats: any;
+  
   constructor(private rendezVousService: RendezVousService) {
     Chart.register(...registerables); // Enregistrer les composants nécessaires de Chart.js
   }
 
   ngOnInit(): void {
-    this.loadStats();
+    this.loadWeeklyStats();
+    this.loadMonthlyStats();
+    this.loadYearlyStats();
   }
 
-  loadStats(): void {
+  loadWeeklyStats(): void {
     this.rendezVousService.getWeeklyStats().subscribe({
       next: (data) => {
-        this.renderChart(data);
+        this.weeklyStats = data;
+        this.renderChart('weeklyChart', data, 'Statistiques Hebdomadaires');
       },
       error: (err) => {
-        console.error('Erreur lors du chargement des statistiques :', err);
+        console.error('Erreur lors du chargement des statistiques hebdomadaires :', err);
       }
     });
   }
 
-  renderChart(data: any): void {
-    const ctx = document.getElementById('statsChart') as HTMLCanvasElement;
+  loadMonthlyStats(): void {
+    this.rendezVousService.getMonthlyStats().subscribe({
+      next: (data) => {
+        this.monthlyStats = data;
+        this.renderChart('monthlyChart', data, 'Statistiques Mensuelles');
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des statistiques mensuelles :', err);
+      }
+    });
+  }
+
+  loadYearlyStats(): void {
+    this.rendezVousService.getYearlyStats().subscribe({
+      next: (data) => {
+        this.yearlyStats = data;
+        this.renderChart('yearlyChart', data, 'Statistiques Annuelles');
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des statistiques annuelles :', err);
+      }
+    });
+  }
+  renderChart(chartId: string, data: any, title: string): void {
+    const ctx = document.getElementById(chartId) as HTMLCanvasElement;
 
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: data.labels, // Les jours ou semaines
+        labels: data.labels, // Days, weeks, or months
         datasets: [
           {
             label: 'Acceptés',
@@ -43,17 +73,10 @@ export class StatistiqueComponent implements OnInit {
             borderWidth: 1
           },
           {
-            label: 'Reportés',
-            data: data.rescheduled,
-            backgroundColor: 'rgba(255, 206, 86, 0.6)',
-            borderColor: 'rgba(255, 206, 86, 1)',
-            borderWidth: 1
-          },
-          {
-            label: 'Refusés',
-            data: data.refused,
-            backgroundColor: 'rgba(255, 99, 132, 0.6)',
-            borderColor: 'rgba(255, 99, 132, 1)',
+            label: 'Total Patients',
+            data: data.totalPatients,
+            backgroundColor: 'rgba(153, 102, 255, 0.6)',
+            borderColor: 'rgba(153, 102, 255, 1)',
             borderWidth: 1
           }
         ]
@@ -66,7 +89,7 @@ export class StatistiqueComponent implements OnInit {
           },
           title: {
             display: true,
-            text: 'Statistiques des rendez-vous par semaine'
+            text: title
           }
         },
         scales: {

@@ -1,6 +1,6 @@
 export interface RendezVous {
     patient: any;
-    statut: string;
+    statutrdv: string;
     id: number;
     date: Date;
     description: string;

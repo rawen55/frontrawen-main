@@ -5,6 +5,18 @@
   box-sizing: border-box;
 }
 
+
+.notification-badge {
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 5px 10px;
+  margin-left: 10px;
+  display: inline-block;
+}
+
 /* Container général */
 .container {
   display: flex;

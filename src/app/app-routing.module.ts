@@ -10,7 +10,6 @@ import { RechercheMedecinComponent } from './recherche-medecin/recherche-medecin
 import { DashboardMedecinComponent } from './dashboard-medecin/dashboard-medecin.component';
 import { DashboardPageComponent } from './pages/medecin/dashboard-page/dashboard-page.component';
 import { OrdonnanceListComponent } from './pages/medecin/ordonnance-list/ordonnance-list.component';
-import { NotificationsComponent } from './pages/medecin/notifications/notifications.component';
 import { PatientsListComponent } from './pages/medecin/patients-list/patients-list.component';
 import { DetailRendezVousComponent } from './components/rendez-vous/detail-rendez-vous/detail-rendez-vous.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
@@ -28,8 +27,10 @@ import { ConfirmationComponent } from './pages/patient-dashboard/confirmation/co
 import { DiagnosticComponent } from './pages/diagnostic/diagnostic.component';
 import { MesRendezVousComponent } from './pages/patient-dashboard/mesrendez-vous/mesrendez-vous.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { FormConsultationComponent } from './form-consultation/form-consultation.component'; // Ensure this path is correct
 export const routes: Routes = [
   { path: 'admin-dashboard', component: AdminDashboardComponent },
+  {path:'form-consultation/:medecinId' ,component :FormConsultationComponent},
   { path: 'form-rendez-vous/:medecinId', component: FormRendezVousComponent },
   { path: 'contact', component: ContactUsComponent },
   { path: '', component: HomeComponent },
@@ -38,6 +39,7 @@ export const routes: Routes = [
   { path: 'rendez-vous', component: FormRendezVousComponent },
   { path: 'rendez-vous/:id', component: DetailRendezVousComponent },
   { path: 'recherche-medecin', component: RechercheMedecinComponent },
+ 
   { path: 'forgot-password', component: ForgotPasswordComponent },
   {
 
@@ -55,7 +57,6 @@ export const routes: Routes = [
       { path: 'documents', component: DocumentsComponent },
       { path: 'ordonnances', component: OrdonnancesComponent },
       { path: 'profil', component: ProfilComponent },
-      { path: 'notifications', component: NotificationsComponent },
     ]
   }, { path: 'unauthorized', component: UnauthorizedComponent },
   {
@@ -68,7 +69,6 @@ export const routes: Routes = [
       { path: 'appointments/diagnostic/:id', component: DiagnosticComponent },
       { path: 'ordonnances', component: OrdonnanceListComponent },
       { path: 'patients', component: PatientsListComponent },
-      { path: 'notifications', component: NotificationsComponent },
       { path: 'profil', component: ProfilComponent },
       { path: 'statistique', component: StatistiqueComponent }
 

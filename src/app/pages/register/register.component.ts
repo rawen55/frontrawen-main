@@ -33,7 +33,8 @@ registerForm: any;
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       role: ['', Validators.required], 
-      specialite: [''] // sera requis seulement si le rôle est "medecin"
+      specialite: [''], // sera requis seulement si le rôle est "medecin"
+      adresse: ['']
     });
 
     this.form.get('role')?.valueChanges.subscribe(role => {

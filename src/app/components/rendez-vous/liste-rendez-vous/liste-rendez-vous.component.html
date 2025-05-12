@@ -14,7 +14,9 @@
     <!-- Filtrage par prénom -->
     <label for="searchPrenom">Prénom :</label>
     <input type="text" id="searchPrenom" [(ngModel)]="filter.searchPrenom" name="searchPrenom" placeholder="Prénom">
-<div></div>
+  <div>
+
+</div>
 
         <!-- Filtrage par plage de dates -->
         <label for="startDate">De :</label>
@@ -33,11 +35,11 @@
   <div *ngFor="let rdv of filteredRendezVous" class="rdv-card">
     <p><strong>Date :</strong> {{ rdv.date | date:'short' }}</p>
     <p><strong>Patient :</strong> {{ rdv.patient?.prenom }} {{ rdv.patient?.nom }}</p>
-    <p><strong>Statut : EN_ATTENTE</strong> {{ rdv.statut }}</p>
-
+    <p><strong>Statut :</strong> {{ rdv.statutrdv }}</p>
+    
     <div class="actions">
 
-      <button (click)="acceptRendezVous(rdv.id)" [disabled]="rdv.statut === 'CONFIRMÉ'">✅ Accepter</button>
+      <button (click)="acceptRendezVous(rdv.id)" [disabled]="rdv.statutrdv === 'CONFIRMÉ'">✅ Accepter</button>
       <button class="btn btn-danger" (click)="refuserRendezVous(rdv.id)">Refuser</button>
       <button (click)="onReportClick(rdv.id)">📅 Reporter</button>
     </div>

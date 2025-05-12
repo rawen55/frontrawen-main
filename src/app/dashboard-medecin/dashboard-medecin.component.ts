@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { RendezVousService } from '../services/rendez-vous.service';
+
 
 @Component({
   selector: 'app-dashboard-medecin',
@@ -11,13 +14,37 @@ import { RouterModule } from '@angular/router';
 
 })
 
-export class DashboardMedecinComponent {
+export class DashboardMedecinComponent implements OnInit {
   isSidebarOpen = true;
+  newConsultationCount: number = 0; // Counter for new consultations
+
+  constructor(private rendezVousService: RendezVousService) {}
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
   
+  ngOnInit(): void {
+    this.loadNewConsultationCount();
+  }
+
+  loadNewConsultationCount(): void {
+    // Fetch the number of new consultations (e.g., EN_ATTENTE status)
+    this.rendezVousService.getNewConsultations().subscribe({
+      next: (count) => {
+        this.newConsultationCount = count;
+      },
+      error: (err) => {
+        console.error('Error fetching new consultations:', err);
+      }
+    });
+  }
+
+  resetConsultationCount(): void {
+    // Reset the counter when the user views the "Mes patients" page
+    this.newConsultationCount = 0;
+  }
+
   router: any;
   logout() {
     localStorage.removeItem('token'); // Suppression du token de session

@@ -18,6 +18,10 @@ export class ListeRendezVousComponent implements OnInit {
   rendezVousList: RendezVous[] = [];
   newRendezVousCount: number = 0;
   selectedRdvId: number | null = null;
+  
+  newConsultationCount: number = 0; // Counter for new consultations
+  hasViewedConsultations: boolean = false; // Tracks if the user has viewed consultations
+  
   showCalendar: boolean = false;
   newDate: string = '';
   statusFilter: string = '';
@@ -46,6 +50,9 @@ export class ListeRendezVousComponent implements OnInit {
     this.currentRole = this.authService.getUserRole();
     console.log('Role brut issu du token:', this.currentRole);
     this.loadRendezVous();
+
+    // Reset the counter when the user opens the page
+    this.resetConsultationCount();
   
     // Vérifiez les nouveaux rendez-vous toutes les 30 secondes
     setInterval(() => {
@@ -54,23 +61,36 @@ export class ListeRendezVousComponent implements OnInit {
   }
   
   loadRendezVous(): void {
-    this.rendezVousService.getRendezVousForLoggedMedecin().subscribe({
-      next: data => {
-        console.log('Données des rendez-vous:', data); // Affiche les données brutes
-        this.rendezVousList = data;
-  
-        // Comptez les rendez-vous en attente
-        this.newRendezVousCount = this.rendezVousList.filter(rdv => rdv.statut === 'EN_ATTENTE').length;
-  
-        this.applyFilters();
-        console.log('Nouveaux rendez-vous en attente:', this.newRendezVousCount);
-      },
-      error: (err: any) => {
-        console.error("Erreur lors du chargement des rendez-vous", err);
-      }
-    });
-  
-  }
+  this.rendezVousService.getRendezVousForLoggedMedecin().subscribe({
+    next: (data) => {
+      this.rendezVousList = data;
+
+
+      console.log('Fetched consultations:', this.rendezVousList);
+
+
+      // Update the filtered list for display
+      this.filteredRendezVous = [...this.rendezVousList];
+      console.log('Filtered consultations:', this.filteredRendezVous); // Debugging
+
+      // Count the number of new consultations (e.g., EN_ATTENTE status)
+      this.newRendezVousCount = this.rendezVousList.filter(
+        (rdv) => rdv.statutrdv === 'EN_ATTENTE'
+      ).length;
+
+      console.log('New consultations:', this.newRendezVousCount); // Debugging
+    },
+    error: (err) => {
+      console.error('Error loading consultations:', err);
+    },
+  });
+ }
+
+  resetConsultationCount(): void {
+  // Reset the counter when the user views the page
+  this.newConsultationCount = 0;
+}
+
   filterRendezVous(): void {
     this.filteredRendezVous = this.rendezVousList.filter(rendezVous => {
       const rdvDate = new Date(rendezVous.date);
@@ -94,7 +114,7 @@ export class ListeRendezVousComponent implements OnInit {
     let result = [...this.rendezVousList];
 
     if (this.statusFilter) {
-      result = result.filter(rdv => rdv.statut === this.statusFilter);
+      result = result.filter(rdv => rdv.statutrdv === this.statusFilter);
     }
 
     if (this.selectedDate) {
@@ -128,7 +148,7 @@ export class ListeRendezVousComponent implements OnInit {
         // Met à jour le statut du rendez-vous dans la liste locale
         const rdv = this.rendezVousList.find(r => r.id === id);
         if (rdv) {
-          rdv.statut = 'CONFIRMÉ';
+          rdv.statutrdv = 'CONFIRMÉ';
         }
   
         // Applique les filtres après la mise à jour
@@ -200,7 +220,7 @@ refuserRendezVous(id: number): void {
         const rdv = this.rendezVousList.find(r => r.id === this.selectedRdvId);
         if (rdv) {
           rdv.date = new Date(this.newDate);
-          rdv.statut = 'REPORTÉ';
+          rdv.statutrdv = 'REPORTÉ';
         }
         this.showCalendar = false;
         this.newDate = '';

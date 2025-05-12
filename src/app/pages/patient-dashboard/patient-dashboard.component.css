@@ -4,7 +4,11 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+  html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
   body {
     font-family: Arial, sans-serif;
     background-color: #f0f8ff;
@@ -80,16 +84,15 @@
     background-color: #0d47a1;
   }
   
-  /* Contenu principal */
   .main-content {
-    flex-grow: 1;
-    background-color: #ffffff;
-    padding: 20px;
-    overflow-y: auto;
-    height: 100vh;
-    color: #333;
-  }
-  
+  flex-grow: 1;
+  background-color: #ffffff;
+  padding: 20px;
+  overflow-y: auto;
+  /* Supprimer height: 100vh ici */
+  /* height: 100vh; <-- à retirer */
+  color: #333;
+}
   /* Responsive */
   @media (max-width: 768px) {
     .toggle-sidebar {
