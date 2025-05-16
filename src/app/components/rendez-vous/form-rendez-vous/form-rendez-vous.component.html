@@ -14,22 +14,12 @@
       />
     </div>
 
-    <!-- Description -->
-    <div class="mb-4">
-      <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-      <textarea 
-        id="description" 
-        formControlName="description" 
-        rows="4" 
-        class="w-full p-2 border border-gray-300 rounded-md"
-        placeholder="Décrivez votre problème de santé..."
-      ></textarea>
-    </div>
+    <app-questionnaire></app-questionnaire>
 
     <!-- Upload de document -->
     <div class="mb-4">
       <label for="document" class="block text-sm font-medium text-gray-700">Télécharger des documents</label>
-      <input type="file" (change)="onFileSelected($event)" />
+      <input type="file" (change)="onFileSelected($event)" multiple />
     </div>
 
     <!-- Bouton envoyer -->

@@ -20,7 +20,7 @@ adresse: any;
 export class MedecinService {
   getMedecinById(id: number): Observable<{ prenom: string; nom: string }> {
     // Replace with actual HTTP call or logic
-    return this.http.get<{ prenom: string; nom: string }>(`/api/medecins/${id}`);
+    return this.http.get<{ prenom: string; nom: string }>(`/api/medecin/${id}`);
   }
   private apiUrl = 'http://localhost:8080/api/medecin';
 

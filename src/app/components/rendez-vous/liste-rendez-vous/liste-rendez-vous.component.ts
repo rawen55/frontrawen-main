@@ -142,7 +142,7 @@ export class ListeRendezVousComponent implements OnInit {
 
 
 
-  acceptRendezVous(id: number): void {
+acceptRendezVous(id: number): void {
     this.rendezVousService.updateStatutRendezVous(id, 'CONFIRMÉ').subscribe({
       next: () => {
         // Met à jour le statut du rendez-vous dans la liste locale
@@ -173,29 +173,34 @@ export class ListeRendezVousComponent implements OnInit {
 refuserRendezVous(id: number): void {
   Swal.fire({
     title: 'Êtes-vous sûr ?',
-    text: 'Voulez-vous vraiment supprimer ce rendez-vous ?',
+    text: 'Voulez-vous vraiment refuser ce rendez-vous ?',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Oui, supprimer',
+    confirmButtonText: 'Oui, refuser',
     cancelButtonText: 'Annuler'
   }).then((result) => {
     if (result.isConfirmed) {
       this.rendezVousService.supprimerRendezVous(id).subscribe({
         next: () => {
-          this.rendezVousList = this.rendezVousList.filter(rdv => rdv.id !== id);
+          // Update the status locally instead of removing the item
+          const rdv = this.rendezVousList.find(r => r.id === id);
+          if (rdv) {
+            rdv.statutrdv = 'REFUSE';
+          }
+          this.applyFilters(); // Refresh filtered list if needed
           Swal.fire(
-            'Supprimé !',
-            'Le rendez-vous a été supprimé avec succès.',
+            'Refusé !',
+            'Le rendez-vous a été refusé avec succès.',
             'success'
           );
         },
         error: (err) => {
-          console.error('Erreur lors de la suppression du rendez-vous :', err);
+          console.error('Erreur lors du refus du rendez-vous :', err);
           Swal.fire(
             'Erreur',
-            'Une erreur est survenue lors de la suppression du rendez-vous.',
+            'Une erreur est survenue lors du refus du rendez-vous.',
             'error'
           );
         }
@@ -214,26 +219,25 @@ refuserRendezVous(id: number): void {
       return;
     }
 
+    else {
+      this.reportRendezVous(this.selectedRdvId, this.newDate);
+    }
 
-    this.rendezVousService.reportRendezVous(this.selectedRdvId, this.newDate).subscribe({
-      next: () => {
-        const rdv = this.rendezVousList.find(r => r.id === this.selectedRdvId);
-        if (rdv) {
-          rdv.date = new Date(this.newDate);
-          rdv.statutrdv = 'REPORTÉ';
-        }
-        this.showCalendar = false;
-        this.newDate = '';
-        this.selectedRdvId = null;
-        this.applyFilters();
-      },
-      error: (err: any) => {
-        if (err.status === 403) {
-          alert("Vous n'avez pas la permission de réaliser cette action.");
-        } else {
-          console.error("Erreur lors du report du rendez-vous", err);
-        }
-      }
-    });
   }
+reportRendezVous(id: number, newDate: string): void {
+  this.rendezVousService.reportRendezVous(id, newDate).subscribe({
+    next: (updatedRendezVous) => {
+      console.log('Rendez-vous reporté avec succès:', updatedRendezVous);
+      const rdv = this.rendezVousList.find(r => r.id === id);
+      if (rdv) {
+        rdv.date = updatedRendezVous.date;
+        rdv.statutrdv = updatedRendezVous.statutrdv;
+      }
+    },
+    error: (err) => {
+      console.error('Erreur lors du report du rendez-vous:', err);
+    }
+  });
+}
+
 }

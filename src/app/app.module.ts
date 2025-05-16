@@ -28,6 +28,8 @@ import { MesRendezVousComponent } from './pages/patient-dashboard/mesrendez-vous
 import { StatistiqueComponent } from './pages/medecin/statistique/statistique.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { FormConsultationComponent } from './form-consultation/form-consultation.component';
+import { CommonModule } from '@angular/common';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 
 NgModule({
   declarations: [
@@ -38,6 +40,7 @@ NgModule({
     ContactUsComponent,
    ProfilComponent,
     AppComponent,
+    QuestionnaireComponent,
     MedecinsComponent,
     AccueilComponent ,
     HomeComponent,
@@ -64,8 +67,8 @@ NgModule({
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-   
-    RouterModule.forRoot([])
+    FormsModule, // Ensure FormsModule is added here
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

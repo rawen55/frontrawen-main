@@ -1,4 +1,41 @@
 <div class="container">
-    <h1>Tableau de bord Administrateur</h1>
-  <p>Bienvenue sur le tableau de bord administrateur.</p>
+  <h1>Tableau de bord Administrateur</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Rôle</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.nom }}</td>
+        <td>{{ user.prenom }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <button (click)="editUser(user)">Modifier</button>
+          <button (click)="deleteUser(user.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>{{ isEditing ? 'Modifier' : 'Ajouter' }} un utilisateur</h2>
+  <form [formGroup]="userForm" (ngSubmit)="isEditing ? updateUser() : addUser()">
+    <input formControlName="nom" placeholder="Nom" required />
+    <input formControlName="prenom" placeholder="Prénom" required />
+    <input formControlName="email" placeholder="Email" required />
+    <select formControlName="role" required>
+      <option value="PATIENT">Patient</option>
+      <option value="MEDECIN">Médecin</option>
+    </select>
+    <input formControlName="password" placeholder="Mot de passe" [required]="!isEditing" />
+    <button type="submit">{{ isEditing ? 'Mettre à jour' : 'Ajouter' }}</button>
+  </form>
 </div>

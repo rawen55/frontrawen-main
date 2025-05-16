@@ -28,6 +28,8 @@ import { DiagnosticComponent } from './pages/diagnostic/diagnostic.component';
 import { MesRendezVousComponent } from './pages/patient-dashboard/mesrendez-vous/mesrendez-vous.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { FormConsultationComponent } from './form-consultation/form-consultation.component'; // Ensure this path is correct
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+
 export const routes: Routes = [
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   {path:'form-consultation/:medecinId' ,component :FormConsultationComponent},
@@ -39,8 +41,9 @@ export const routes: Routes = [
   { path: 'rendez-vous', component: FormRendezVousComponent },
   { path: 'rendez-vous/:id', component: DetailRendezVousComponent },
   { path: 'recherche-medecin', component: RechercheMedecinComponent },
- 
+  { path: 'confirmation', component: ConfirmationComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'questionnaire', component: QuestionnaireComponent },
   {
 
     path: 'patient-dashboard',
@@ -49,8 +52,8 @@ export const routes: Routes = [
 
 
       { path: 'form-rendez-vous/:medecinId', component: FormRendezVousComponent, },
-      { path: 'confirmation', component: ConfirmationComponent },
-      { path: 'confirmation/Accueil', component: AccueilComponent },
+     
+    //  { path: 'confirmation/Accueil', component: ConfirmationComponent },//
       { path: 'Accueil', component: AccueilComponent },
       { path: 'mesrendez-vous', component: MesRendezVousComponent },
       { path: 'medecins', component: MedecinsComponent },

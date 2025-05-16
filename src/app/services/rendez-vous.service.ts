@@ -72,9 +72,9 @@ export class RendezVousService {
     return this.http.get<any>('http://localhost:8080/api/rendezvous/stats/yearly', { headers });
   }
 
-  supprimerRendezVous(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
+  supprimerRendezVous(id: number): Observable<any> {
+  return this.http.delete<any>(`${this.apiUrl}/${id}`);
+}
 
 savePreconsultation(rdvId: number, notes: string): Observable<any> {
   return this.http.post(`/api/preconsultations`, { rdvId, notes });
@@ -90,9 +90,15 @@ rejectRendezVous(rdvId: number): Observable<void> {
   return this.http.post<void>(`${this.apiUrl}/rendezvous/${rdvId}/reject`, {});
 }
 
-reportRendezVous(rdvId: number, newDate: string): Observable<void> {
-  return this.http.post<void>(`${this.apiUrl}/rendezvous/${rdvId}/report`, { newDate });
+reportRendezVous(id: number, newDate: string): Observable<RendezVous> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,
+  });
+
+  return this.http.post<RendezVous>(`${this.apiUrl}/${id}/report`, { newDate }, { headers });
 }
+
 getRendezVousById(rdvId: number): Observable<any> {
   const url = `${this.apiUrl}/rendezvous/${rdvId}`;
   return this.http.get(url);
